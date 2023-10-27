@@ -1,0 +1,76 @@
+{
+   "DebugEnabled": false,
+   "_comment": "-- The following provides options for GA and SST operations --",
+    "GASelectMethods":  ["selection_rws", "selection_ts"],
+    "GAXOverMethods": ["xover_single", "xover_multiple", "xover_uniform"],
+    "GAMutationMethods": ["mutate_bitwise", "mutate_torus"],
+    "LayerBasedMutationRules": ["lambda x: x[1:]+[x[0]]",
+                                "lambda x: random.shuffle(x)"],
+    "SSTLayerInputRules": ["lambda x: 2 * x"],
+
+    "_comment": "-- Define the maximum length for an exploring UIO sequence --",
+    "MaxUIOLength": 5,
+
+    "_comment": "-- A GA chromosome is assigned with a list of attributes --",
+    "ChromosomeAttributes": {
+                             "fitness": -1,
+                             "scaled_fitness": -1,
+                             "sst": null,
+                             "sharing_factors": []
+                            },
+
+    "_comment": "-- GA settings --",
+    "GA": {
+           "PopulationSize": 100,
+           "Generation": 2,
+           "SelectionOperator": 1,
+           "XOverOperator": 2,
+           "MutationOperator": 1,
+
+           "_comment": "-- Refer to the selections from LayerBasedMutationRules --",
+           "MutationOperatorRule": 1,
+
+           "_comment": "-- Tree input rule (only one pattern is provided)! --",
+           "TreeInputRule": 0,
+
+           "XRate": 0.75,
+           "MRate": 0.05,
+           "RWS_SelectionGate": 0.70,
+           "TS_SelectionPortion": 0.4,
+           "MultipleXOverPoints": 4,
+           "SimilarityThreshold": 0.4,
+           "MutationOperatorDegree": 1,
+
+           "SharingEnabled": true,
+           "ScalingEnabled": true,
+           "StatisticsEnabled": false,
+
+           "_comment": "-- Compute statistics from an interval [start, interval] --",
+           "StatisticsGenInterval": [0, 10]
+           },
+
+    "_comment": "-- Parameters for evaluating the fitness value from an SST --",
+    "Fitness" : {
+                 "Alpha": 10,
+                 "Belta": 2,
+                 "Gammar": 1,
+                 "LayerHeightThreshold": 2,
+                 "ScalingBase": 1.01
+                },
+
+    "_comment": "-- Configuration for a default FSM --",
+    "FSM": {
+            "_File": "fsm_1.txt",
+            "_UIOSet": "m2_uio_set.txt",
+            "FSMDefault": {
+                           "NumberOfStates": 105,
+                           "InputSet": ["a", "b", "c"],
+                           "OutputSet": ["x", "y"],
+                           "DigraphShapeOptions": ["symmetric"],
+                           "DigraphShapeSelection": 0
+                           }
+           },
+    "_comment": "-- Settings for parallelism --",
+    "ParallelismEnabled": false,
+    "NumberOfThreadsPerCPU": 5
+}
